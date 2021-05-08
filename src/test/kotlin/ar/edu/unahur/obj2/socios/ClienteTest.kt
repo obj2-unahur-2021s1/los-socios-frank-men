@@ -5,23 +5,81 @@ import io.kotest.matchers.shouldBe
 
 class ClienteTest : DescribeSpec({
   describe("Un/a cliente") {
-    val unCliente = Cliente()
-    unCliente.plataEnBolsillo = 15.5
-    it("enojado"){
-      unCliente.setEstado(Enojado())
-      unCliente.calcularPropina(1500.0).shouldBe(0.0)
+    val unCliente = Cliente(15.5)
+    describe("Calcula propina por estado") {
+      it("enojado") {
+        unCliente.eligeEstado(Enojado())
+        unCliente.calcularPropina(1500.0).shouldBe(0.0)
+      }
+      it("feliz") {
+        unCliente.eligeEstado(Feliz())
+        unCliente.calcularPropina(1500.0).shouldBe(375.0)
+      }
+      it("indiferente") {
+        unCliente.eligeEstado(Indiferente())
+        unCliente.calcularPropina(1500.0).shouldBe(15.5)
+      }
+      it("resfriado/a") {
+        unCliente.eligeEstado(Resfriado())
+        unCliente.calcularPropina(1500.0).shouldBe(1500.0)
+      }
     }
-    it("feliz"){
-      unCliente.setEstado(Feliz())
-      unCliente.calcularPropina(1500.0).shouldBe(375.0)
+    describe("Calcula propina por estado y barrio Las Rosas"){
+      unCliente.eligeBarrio(LasRosas())
+      it("enojado de Las Rosas") {
+        unCliente.eligeEstado(Enojado())
+        unCliente.calcularPropina(1500.0).shouldBe(50.0)
+      }
+      it("feliz de Las Rosas") {
+        unCliente.eligeEstado(Feliz())
+        unCliente.calcularPropina(1500.0).shouldBe(425.0)
+      }
+      it("indiferente de Las Rosas") {
+        unCliente.eligeEstado(Indiferente())
+        unCliente.calcularPropina(1500.0).shouldBe(65.5)
+      }
+      it("resfriado/a de Las Rosas") {
+        unCliente.eligeEstado(Resfriado())
+        unCliente.calcularPropina(1500.0).shouldBe(1550.0)
+      }
     }
-    it("indiferente"){
-      unCliente.setEstado(Indiferente())
-      unCliente.calcularPropina(1500.0).shouldBe(15.5)
+    describe("Calcula propina por estado y barrio Las Ratas"){
+      unCliente.eligeBarrio(LasRatas())
+      it("enojado de Las Ratas") {
+        unCliente.eligeEstado(Enojado())
+        unCliente.calcularPropina(1500.0).shouldBe(0.0)
+      }
+      it("feliz de Las Ratas") {
+        unCliente.eligeEstado(Feliz())
+        unCliente.calcularPropina(1500.0).shouldBe(187.5)
+      }
+      it("indiferente de Las Ratas") {
+        unCliente.eligeEstado(Indiferente())
+        unCliente.calcularPropina(1500.0).shouldBe(7.75)
+      }
+      it("resfriado/a de Las Ratas") {
+        unCliente.eligeEstado(Resfriado())
+        unCliente.calcularPropina(1500.0).shouldBe(750.0)
+      }
     }
-    it("resfriado/a"){
-      unCliente.setEstado(Resfriado())
-      unCliente.calcularPropina(1500.0).shouldBe(1500.0)
+    describe("Calcula propina por estado y barrio Barrio Verde"){
+      unCliente.eligeBarrio(BarrioVerde())
+      it("enojado de Barrio Verde") {
+        unCliente.eligeEstado(Enojado())
+        unCliente.calcularPropina(1500.0).shouldBe(200.0)
+      }
+      it("feliz de Barrio Verde") {
+        unCliente.eligeEstado(Feliz())
+        unCliente.calcularPropina(1500.0).shouldBe(375.0)
+      }
+      it("indiferente de Barrio Verde") {
+        unCliente.eligeEstado(Indiferente())
+        unCliente.calcularPropina(1500.0).shouldBe(200.0)
+      }
+      it("resfriado/a de Barrio Verde") {
+        unCliente.eligeEstado(Resfriado())
+        unCliente.calcularPropina(1500.0).shouldBe(1500.0)
+      }
     }
   }
 })

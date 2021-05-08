@@ -1,14 +1,15 @@
 package ar.edu.unahur.obj2.socios
 
-class Cliente{
-    var plataEnBolsillo = 0.0
-    private lateinit var estado: Estado
+class Cliente(var plataEnBolsillo: Double, private var estado: Estado = Enojado(), private var barrio: Barrio = LasTorres()){
 
-    fun setEstado(estado: Estado) {
+    fun eligeEstado(estado: Estado) {
         this.estado = estado
     }
-    fun calcularPropina(importePedido: Double) =
-        estado.calculaPropina(importePedido, plataEnBolsillo)
+    fun eligeBarrio(barrio: Barrio){
+        this.barrio = barrio
+    }
+    fun calcularPropina(importePedido: Double) = barrio.factorBarrio(this.calculoAuxiliarPropina(importePedido))
+    private fun calculoAuxiliarPropina(importePedido: Double) = estado.calculaPropina(importePedido, plataEnBolsillo)
 }
 
 interface Estado{
@@ -25,4 +26,20 @@ class Indiferente: Estado{
 }
 class Resfriado: Estado{
     override fun calculaPropina(precio: Double, plataEnBolsillo: Double) = precio
+}
+
+interface Barrio{
+    fun factorBarrio(propina: Double): Double
+}
+class LasRosas: Barrio{
+    override fun factorBarrio(propina: Double) = propina + 50.0
+}
+class LasRatas: Barrio{
+    override fun factorBarrio(propina: Double) = propina / 2
+}
+class BarrioVerde: Barrio{
+    override fun factorBarrio(propina: Double) = if (propina<200){200.0} else{propina}
+}
+class LasTorres: Barrio{
+    override fun factorBarrio(propina: Double) = propina * 1.0
 }
