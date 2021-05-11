@@ -25,22 +25,22 @@ class ClienteTest : DescribeSpec({
       }
     }
     describe("Calcula propina por estado y barrio Las Rosas"){
-      unCliente.eligeBarrio(LasRosas())
+      val unCliente1 = Cliente(15.5, Enojado(),LasRosas())
       it("enojado de Las Rosas") {
-        unCliente.eligeEstado(Enojado())
-        unCliente.calcularPropina(1500.0).shouldBe(50.0)
+        unCliente1.eligeEstado(Enojado())
+        unCliente1.calcularPropina(1500.0).shouldBe(50.0)
       }
       it("feliz de Las Rosas") {
-        unCliente.eligeEstado(Feliz())
-        unCliente.calcularPropina(1500.0).shouldBe(425.0)
+        unCliente1.eligeEstado(Feliz())
+        unCliente1.calcularPropina(1500.0).shouldBe(425.0)
       }
       it("indiferente de Las Rosas") {
-        unCliente.eligeEstado(Indiferente())
-        unCliente.calcularPropina(1500.0).shouldBe(65.5)
+        unCliente1.eligeEstado(Indiferente())
+        unCliente1.calcularPropina(1500.0).shouldBe(65.5)
       }
       it("resfriado/a de Las Rosas") {
-        unCliente.eligeEstado(Resfriado())
-        unCliente.calcularPropina(1500.0).shouldBe(1550.0)
+        unCliente1.eligeEstado(Resfriado())
+        unCliente1.calcularPropina(1500.0).shouldBe(1550.0)
       }
     }
     describe("Calcula propina por estado y barrio Las Ratas"){
