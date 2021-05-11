@@ -1,13 +1,7 @@
 package ar.edu.unahur.obj2.socios
 
-class Cliente(var plataEnBolsillo: Double, private var estado: Estado = Enojado(), private var barrio: Barrio = LasTorres()){
+class Cliente(var plataEnBolsillo: Double, var estado: Estado, var barrio: Barrio){
 
-    fun eligeEstado(estado: Estado) {
-        this.estado = estado
-    }
-    fun eligeBarrio(barrio: Barrio){
-        this.barrio = barrio
-    }
     fun calcularPropina(importePedido: Double) = barrio.factorBarrio(this.calculoAuxiliarPropina(importePedido))
     private fun calculoAuxiliarPropina(importePedido: Double) = estado.calculaPropina(importePedido, plataEnBolsillo)
 }
